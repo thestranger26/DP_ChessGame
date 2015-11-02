@@ -15,14 +15,15 @@ public class ChessGame extends Observable {
 
     
     private Echiquier echiquier;
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+
+    public ChessGame() {
+        echiquier = new Echiquier();
     }
     
+
+       
+    
+    @Override
     public String toString()
     {
         String  affichageEchiquier = echiquier.toString();
