@@ -3,13 +3,19 @@
  * and open the template in the editor.
  */
 package model.observable;
+import java.util.Observable;
+import model.Couleur;
+import model.Echiquier;
 
 /**
  *
  * @author Tristan
  */
-public class ChessGame {
+public class ChessGame extends Observable {
 
+    
+    private Echiquier echiquier;
+    
     /**
      * @param args the command line arguments
      */
@@ -17,10 +23,43 @@ public class ChessGame {
         // TODO code application logic here
     }
     
-    public String toString(); 
-	public boolean move (int xInit, int yInit, int xFinal, int yFinal); 
-	public boolean isEnd();
-	public String getMessage();
-	public Couleur getColorCurrentPlayer(); 
+    public String toString()
+    {
+        String  affichageEchiquier = echiquier.toString();
+        String message = this.getMessage();
+        return affichageEchiquier+" "+message;
+    }
+    public boolean move (int xInit, int yInit, int xFinal, int yFinal)
+    {
+        
+        if(echiquier.isMoveOk(xInit, yInit, xFinal, yFinal))
+        {
+            echiquier.move(xInit, yInit, xFinal, yFinal);
+            echiquier.switchJoueur();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
+        
+    }
+    public boolean isEnd()
+    {
+        return echiquier.isEnd();
+        
+    }
+    public String getMessage()
+    {
+        
+        return echiquier.getMessage();
+        
+    }
+    public Couleur getColorCurrentPlayer()
+    {
+        return echiquier.getColorCurrentPlayer();
+        
+    }
 
 }
