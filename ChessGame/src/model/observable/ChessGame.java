@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package chessgame;
+package model.observable;
 
 /**
  *
@@ -16,4 +16,11 @@ public class ChessGame {
     public static void main(String[] args) {
         // TODO code application logic here
     }
+    
+    public String toString(); 
+	public boolean move (int xInit, int yInit, int xFinal, int yFinal); 
+	public boolean isEnd();
+	public String getMessage();
+	public Couleur getColorCurrentPlayer(); 
+
 }
