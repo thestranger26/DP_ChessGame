@@ -46,7 +46,7 @@ public class ChessImageProvider {
 		ret = g.getAbsolutePath()+"\\images\\" + value;
 		return ret;		
 	}
-
+        
 	/**
 	 * Test unitaires
 	 * @param args

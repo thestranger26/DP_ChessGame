@@ -4,8 +4,12 @@
  */
 package controler;
 
+import java.util.List;
+import java.util.Observer;
 import model.Coord;
 import model.Couleur;
+import model.PieceIHM;
+import model.Pieces;
 
 /**
  *
@@ -17,4 +21,7 @@ public interface ChessGameControlers {
     public String getMessage();	
     public boolean isEnd();	
     public Couleur getColorCurrentPlayer(); 
+    public void addObserver(Observer o);
+
+    public List<PieceIHM> getListPiecesIHM();
 }

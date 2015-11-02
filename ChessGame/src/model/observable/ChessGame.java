@@ -3,9 +3,12 @@
  * and open the template in the editor.
  */
 package model.observable;
+import java.util.List;
 import java.util.Observable;
 import model.Couleur;
 import model.Echiquier;
+import model.PieceIHM;
+import model.Pieces;
 
 /**
  *
@@ -18,9 +21,9 @@ public class ChessGame extends Observable {
 
     public ChessGame() {
         echiquier = new Echiquier();
+        
     }
     
-
        
     
     @Override
@@ -60,6 +63,11 @@ public class ChessGame extends Observable {
     public Couleur getColorCurrentPlayer()
     {
         return echiquier.getColorCurrentPlayer();
+        
+    }
+
+    public List<PieceIHM> getListPiecesIHM() {
+        return echiquier.getPiecesIHM();
         
     }
 

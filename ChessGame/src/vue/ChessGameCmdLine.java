@@ -41,7 +41,7 @@ public class ChessGameCmdLine {
 		System.out.print("\n Déplacement de 3,4 vers 4,3 : ");
 		System.out.println(chessGameControler.getMessage() + "\n");	
 		System.out.println(chessGameControler + "\n");
-		
+	
 	}
 
 }

@@ -7,6 +7,10 @@ package controler.controlerLocal;
 import model.Coord;
 import model.Couleur;
 import controler.ChessGameControlers;
+import java.util.List;
+import java.util.Observer;
+import model.PieceIHM;
+import model.Pieces;
 import model.observable.ChessGame;
 
 /**
@@ -16,6 +20,7 @@ import model.observable.ChessGame;
 public class ChessGameControler implements ChessGameControlers{
 
     ChessGame chessGame;
+    
 
     public ChessGameControler(ChessGame chessGame) {
         this.chessGame = chessGame;
@@ -39,5 +44,15 @@ public class ChessGameControler implements ChessGameControlers{
     @Override
     public Couleur getColorCurrentPlayer() {
         return chessGame.getColorCurrentPlayer();
+    }
+
+    @Override
+    public void addObserver(Observer o) {
+        chessGame.addObserver(o);
+    }
+    
+    @Override
+    public List<PieceIHM> getListPiecesIHM() {
+        return chessGame.getListPiecesIHM();
     }
 }

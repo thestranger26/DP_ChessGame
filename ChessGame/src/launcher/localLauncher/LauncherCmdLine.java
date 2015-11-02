@@ -19,7 +19,8 @@ public class LauncherCmdLine {
 		chessGame = new ChessGame();	
 		chessGameControler = new ChessGameControler(chessGame);
 		
-		new ChessGameCmdLine(chessGameControler);	
+		new ChessGameCmdLine(chessGameControler);
+                
 	}
 
 }
