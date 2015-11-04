@@ -3,12 +3,12 @@
  * and open the template in the editor.
  */
 package model.observable;
+
 import java.util.List;
 import java.util.Observable;
 import model.Couleur;
 import model.Echiquier;
 import model.PieceIHM;
-import model.Pieces;
 
 /**
  *
@@ -16,59 +16,59 @@ import model.Pieces;
  */
 public class ChessGame extends Observable {
 
-    
     private Echiquier echiquier;
 
     public ChessGame() {
         echiquier = new Echiquier();
-        
+
     }
-    
-       
-    
+
     @Override
-    public String toString()
-    {
-        String  affichageEchiquier = echiquier.toString();
+    public String toString() {
+        String affichageEchiquier = echiquier.toString();
         String message = this.getMessage();
-        return affichageEchiquier+" "+message;
+        return affichageEchiquier + " " + message;
     }
-    public boolean move (int xInit, int yInit, int xFinal, int yFinal)
-    {
+
+    public boolean move(int xInit, int yInit, int xFinal, int yFinal) {
+        boolean ret = false;
         
-        if(echiquier.isMoveOk(xInit, yInit, xFinal, yFinal))
-        {
+        System.out.println("xInit : "+xInit+", yInit : "+yInit+", xFinal : "+xFinal+", yFinal : "+yFinal);
+        
+        if (echiquier.isMoveOk(xInit, yInit, xFinal, yFinal)) {
             echiquier.move(xInit, yInit, xFinal, yFinal);
             echiquier.switchJoueur();
-            return true;
+            System.out.println("Move OK");
+            ret = true;
+        } else {
+            System.out.println("Move NOK");
         }
-        else
-        {
-            return false;
-        }
-        
-        
+
+        this.setChanged();
+        this.notifyObservers();
+        this.clearChanged();
+        return ret;
+
     }
-    public boolean isEnd()
-    {
+
+    public boolean isEnd() {
         return echiquier.isEnd();
-        
+
     }
-    public String getMessage()
-    {
-        
+
+    public String getMessage() {
+
         return echiquier.getMessage();
-        
+
     }
-    public Couleur getColorCurrentPlayer()
-    {
+
+    public Couleur getColorCurrentPlayer() {
         return echiquier.getColorCurrentPlayer();
-        
+
     }
 
     public List<PieceIHM> getListPiecesIHM() {
         return echiquier.getPiecesIHM();
-        
-    }
 
+    }
 }
