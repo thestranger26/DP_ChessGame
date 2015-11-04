@@ -3,7 +3,7 @@ package model;
 /**
  * @author francoise.perrin
  * Inspiration Jacques SARAYDARYAN, Adrien GUENARD
- * Interface spécifique aux déplacements des pions
+ * Interface spï¿½cifique aux dï¿½placements des pions
  */
 public interface Pions {
 	public boolean isMoveDiagOk(int xFinal,	int yFinal);
