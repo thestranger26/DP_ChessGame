@@ -16,6 +16,7 @@ import java.util.Observer;
 import javax.swing.*;
 import model.Coord;
 import model.PieceIHM;
+import model.observable.ChessGame;
 
 public class ChessGameView extends JFrame implements MouseListener, MouseMotionListener, Observer {
 
@@ -65,7 +66,13 @@ public class ChessGameView extends JFrame implements MouseListener, MouseMotionL
         //Add a few pieces to the board
         this.controleur = controleur;
         this.controleur.addObserver(this);
-        this.refreshView();
+        
+        
+        //On récupère la liste des pièces à partir du controleur pour
+        //les envoyer en paramètre à la fonction refreshView
+        java.util.List<PieceIHM> listePieces = controleur.getListPiecesIHM();
+        
+        this.refreshView(listePieces);
     }
 
     public void mousePressed(MouseEvent e) {
@@ -112,7 +119,7 @@ public class ChessGameView extends JFrame implements MouseListener, MouseMotionL
         x_origin = 0;
         y_origin = 0;
 
-        System.out.println("Piece recup : " + x_init + "*" + y_init);
+        //System.out.println("Piece recup : " + x_init + "*" + y_init);
         ////////////////////
         // RECUPERATION DE LA DESTINATION
         chessPiece.setVisible(false);
@@ -121,7 +128,7 @@ public class ChessGameView extends JFrame implements MouseListener, MouseMotionL
         int y_dest = 7 - (e.getY() / 75);
 
 //        res_dest --;
-        System.out.println("Depose en case : " + x_dest + "*" + y_dest);
+        //System.out.println("Depose en case : " + x_dest + "*" + y_dest);
         controleur.move(new Coord(x_init, y_init), new Coord(x_dest, y_dest));
 
 //            if (c instanceof JLabel) {
@@ -158,13 +165,14 @@ public class ChessGameView extends JFrame implements MouseListener, MouseMotionL
 //    }
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("Refresh de l'ecran");
-        this.refreshView();
+        ChessGame c = (ChessGame) o;
+        this.refreshView(c.getListPiecesIHM());
+        JOptionPane.showMessageDialog(chessBoard, c.getMessage());
     }
 
     //Supprime toutes les pieces du plateau, puis reaffiche avec la nouvelle position
-    public void refreshView() {
-
+    public void refreshView(java.util.List<PieceIHM> listePiece) {
+        
         /////////////////////////////////////
         // On commence par tout supprimer
 //        Component component;
@@ -195,20 +203,16 @@ public class ChessGameView extends JFrame implements MouseListener, MouseMotionL
             }
         }
 
-        //Add a few pieces to the board
-
-
-
-
+       
         /////////////////////////////////////
         // Puis on réaffiche toutes les pièces
         JLabel piece;
         JPanel panel;
 
         //On demande au controleur la liste des types de pièces
-        java.util.List<PieceIHM> l = controleur.getListPiecesIHM();
+        
 
-        for (PieceIHM p : l) {
+        for (PieceIHM p : listePiece) {
 
             //Pour chaque type de pièce, on récupère les coordoonées des différentes pièces de ce type
             java.util.List<Coord> listeCoord = p.getList();

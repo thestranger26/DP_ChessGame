@@ -33,7 +33,7 @@ public class ChessGame extends Observable {
     public boolean move(int xInit, int yInit, int xFinal, int yFinal) {
         boolean ret = false;
         
-        System.out.println("xInit : "+xInit+", yInit : "+yInit+", xFinal : "+xFinal+", yFinal : "+yFinal);
+       // System.out.println("xInit : "+xInit+", yInit : "+yInit+", xFinal : "+xFinal+", yFinal : "+yFinal);
         
         if (echiquier.isMoveOk(xInit, yInit, xFinal, yFinal)) {
             echiquier.move(xInit, yInit, xFinal, yFinal);
