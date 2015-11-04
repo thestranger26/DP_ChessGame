@@ -4,7 +4,7 @@
  */
 package dp_chessgame;
 
-import controler.controlerLocal.ChessGameControler;
+import controler.controlerLocal.ChessGameControler_local;
 import javax.swing.JFrame;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import model.observable.ChessGame;
@@ -24,12 +24,12 @@ public class DP_ChessGame {
         // TODO code application logic here
 
         ChessGame chessGame;
-        ChessGameControler chessGameControler;
+        ChessGameControler_local chessGameControler;
 
         chessGame = new ChessGame();
         chessGame.toString();
         
-        chessGameControler = new ChessGameControler(chessGame);
+        chessGameControler = new ChessGameControler_local(chessGame);
         
         
         JFrame frame = new ChessGameView(chessGameControler);

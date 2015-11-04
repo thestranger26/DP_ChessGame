@@ -15,7 +15,7 @@ import model.Pieces;
  *
  * @author Tristan
  */
-public interface ChessGameControlers {
+public interface I_ChessGameControlers {
 
     public boolean move(Coord initCoord, Coord finalCoord);
     public String getMessage();	

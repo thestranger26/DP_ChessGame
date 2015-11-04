@@ -8,7 +8,7 @@ package vue;
  *
  * @author Tristan
  */
-import controler.ChessGameControlers;
+import controler.I_ChessGameControlers;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Observable;
@@ -25,11 +25,11 @@ public class ChessGameView extends JFrame implements MouseListener, MouseMotionL
     JLabel chessPiece;
     int xAdjustment;
     int yAdjustment;
-    private ChessGameControlers controleur;
+    private I_ChessGameControlers controleur;
     int x_origin;
     int y_origin;
 
-    public ChessGameView(ChessGameControlers controleur) {
+    public ChessGameView(I_ChessGameControlers controleur) {
 
 
 
@@ -67,9 +67,6 @@ public class ChessGameView extends JFrame implements MouseListener, MouseMotionL
         this.controleur = controleur;
         this.controleur.addObserver(this);
         
-        
-        //On récupère la liste des pièces à partir du controleur pour
-        //les envoyer en paramètre à la fonction refreshView
         java.util.List<PieceIHM> listePieces = controleur.getListPiecesIHM();
         
         this.refreshView(listePieces);
@@ -168,6 +165,7 @@ public class ChessGameView extends JFrame implements MouseListener, MouseMotionL
         ChessGame c = (ChessGame) o;
         this.refreshView(c.getListPiecesIHM());
         JOptionPane.showMessageDialog(chessBoard, c.getMessage());
+
     }
 
     //Supprime toutes les pieces du plateau, puis reaffiche avec la nouvelle position
@@ -203,7 +201,11 @@ public class ChessGameView extends JFrame implements MouseListener, MouseMotionL
             }
         }
 
-       
+        //Add a few pieces to the board
+
+
+
+
         /////////////////////////////////////
         // Puis on réaffiche toutes les pièces
         JLabel piece;

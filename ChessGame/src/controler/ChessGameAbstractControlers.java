@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package controler.controlerLocal;
+package controler;
 
 import model.Coord;
 import model.Couleur;
-import controler.ChessGameControlers;
+import controler.I_ChessGameControlers;
 import java.util.List;
 import java.util.Observer;
 import model.PieceIHM;
@@ -17,19 +17,18 @@ import model.observable.ChessGame;
  *
  * @author Tristan
  */
-public class ChessGameControler implements ChessGameControlers{
+public abstract class ChessGameAbstractControlers implements I_ChessGameControlers{
 
-    ChessGame chessGame;
+    protected ChessGame chessGame;
     
 
-    public ChessGameControler(ChessGame chessGame) {
+    public ChessGameAbstractControlers(ChessGame chessGame) {
         this.chessGame = chessGame;
     }
     
+    
     @Override
-    public boolean move(Coord initCoord, Coord finalCoord) {
-       return chessGame.move(initCoord.x, initCoord.y, finalCoord.x, finalCoord.y);
-    }
+    public abstract boolean move(Coord initCoord, Coord finalCoord);
 
     @Override
     public String getMessage() {

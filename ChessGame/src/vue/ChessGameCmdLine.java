@@ -1,6 +1,6 @@
 package vue;
 
-import controler.controlerLocal.ChessGameControler;
+import controler.controlerLocal.ChessGameControler_local;
 import model.Coord;
 import model.observable.ChessGame;
 
@@ -13,7 +13,7 @@ import model.observable.ChessGame;
  */
 public class ChessGameCmdLine {
 	
-	public   ChessGameCmdLine(ChessGameControler chessGameControler) {
+	public   ChessGameCmdLine(ChessGameControler_local chessGameControler) {
 		
 		System.out.println(chessGameControler + "\n");
 		
