@@ -13,10 +13,11 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import model.Coord;
+import model.Couleur;
 import model.observable.ChessGame;
-import socket.ChessGame_Socket;
-import socket.Client;
-import socket.Serveur;
+import socket.AbstractSocket;
+import socket.SocketClient;
+import socket.SocketServeur;
 
 /**
  *
@@ -24,25 +25,15 @@ import socket.Serveur;
  */
 public class ChessGameControler_sockets extends ChessGameAbstractControlers implements Runnable {
 
-    ChessGame_Socket socket;
+    AbstractSocket socket;
+    Couleur couleur;
 
-    public ChessGameControler_sockets(ChessGame chessGame, boolean isServeur) {
+    public ChessGameControler_sockets(ChessGame chessGame, AbstractSocket socket, Couleur couleur) {
         super(chessGame);
-        if (isServeur) {
-            System.out.println("Démarrage du serveur");
-            try {
-                socket = new Serveur();
-            } catch (Exception e) {
-                System.out.println(e.toString());
-            }
-        } else {
-            System.out.println("Démarrage du client");
-            try {
-                socket = new Client();
-            } catch (Exception e) {
-                System.out.println(e.toString());
-            }
-        }
+        
+        this.socket = socket;
+        this.couleur = couleur;
+
         Thread t = new Thread(this);
         t.start();
     }
@@ -51,13 +42,14 @@ public class ChessGameControler_sockets extends ChessGameAbstractControlers impl
     public boolean move(Coord initCoord, Coord finalCoord) {
 
         boolean ret = false;
-        if (chessGame.move(initCoord.x, initCoord.y, finalCoord.x, finalCoord.y)) {
+        
+        if (chessGame.getColorCurrentPlayer().equals(couleur) 
+                && chessGame.move(initCoord.x, initCoord.y, finalCoord.x, finalCoord.y)) {
+            
             ArrayList<Coord> listCoordonees = new ArrayList<Coord>();
             listCoordonees.add(initCoord);
             listCoordonees.add(finalCoord);
-            System.out.println("Controleur : Envoie du mess");
             socket.send(listCoordonees);
-            System.out.println("Controleur : Mess envoyé");
             ret = true;
         }
         return ret;
@@ -83,6 +75,11 @@ public class ChessGameControler_sockets extends ChessGameAbstractControlers impl
             e.printStackTrace();
 
         }
+    }
+
+    @Override
+    public String getType() {
+        return socket.getType() + " " + couleur.toString();
     }
 
 }

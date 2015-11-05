@@ -24,4 +24,7 @@ public interface I_ChessGameControlers {
     public void addObserver(Observer o);
 
     public List<PieceIHM> getListPiecesIHM();
+
+    public String getType();
+   
 }

@@ -29,4 +29,9 @@ public class ChessGameControler_local extends ChessGameAbstractControlers {
        return chessGame.move(initCoord.x, initCoord.y, finalCoord.x, finalCoord.y);
     }
 
+    @Override
+    public String getType() {
+        return "Jeu Local";
+    }
+
 }

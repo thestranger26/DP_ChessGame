@@ -19,11 +19,11 @@ import java.net.UnknownHostException;
  *
  * @author Tristan
  */
-public class Client extends ChessGame_Socket {
+public class SocketClient extends AbstractSocket {
 
     public static Socket socket = null;
 
-   public Client() {
+   public SocketClient() {
 
         try {
 
@@ -54,5 +54,10 @@ public class Client extends ChessGame_Socket {
        while (true) {
            
        }
+    }
+
+    @Override
+    public String getType() {
+        return "Client";
     }
 }

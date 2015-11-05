@@ -13,19 +13,19 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import static socket.ChessGame_Socket.out;
-import static socket.Client.socket;
+import static socket.AbstractSocket.out;
+import static socket.SocketClient.socket;
 
 /**
  *
  * @author Tristan
  */
-public class Serveur extends ChessGame_Socket {
+public class SocketServeur extends AbstractSocket {
 
     public static ServerSocket s_socket = null;
     public static Socket socket = null;
     
-    public Serveur()  {
+    public SocketServeur()  {
         super();
                  
               try {
@@ -59,5 +59,10 @@ public class Serveur extends ChessGame_Socket {
       while (true) {
           
       }
+    }
+
+    @Override
+    public String getType() {
+        return "Serveur";
     }
 }

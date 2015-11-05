@@ -15,20 +15,21 @@ import java.io.PrintWriter;
  *
  * @author Tristan
  */
-public abstract class ChessGame_Socket implements Runnable  {
+public abstract class AbstractSocket implements Runnable  {
 
     protected static Reception reception;
     protected static Emission emission;
     protected static ObjectOutputStream out = null;
     protected static ObjectInputStream in = null;
     
-    private boolean ok;
+    
     
     public static void main(String[] args) {}
     
     public void send(Object message) {
         emission.send (message);    
     }
+    
     public Object read(){
 
       Object o = reception.read();
@@ -36,9 +37,11 @@ public abstract class ChessGame_Socket implements Runnable  {
     }
     
     public void run() {
-        while (ok) {
+        while (true) {
             
         }
     }
+
+    public abstract String getType();
     
 }

@@ -22,27 +22,45 @@ public class ChessGameView extends JFrame implements MouseListener, MouseMotionL
 
     JLayeredPane layeredPane;
     JPanel chessBoard;
+    
     JLabel chessPiece;
     int xAdjustment;
     int yAdjustment;
     private I_ChessGameControlers controleur;
     int x_origin;
     int y_origin;
+    
+    
+    JPanel informations_panel;
+    JTextArea informations_textArea;
+    
 
     public ChessGameView(I_ChessGameControlers controleur) {
-
-
+        
+        super(controleur.getType());    
+        
+        
+        this.setLayout(new GridBagLayout());
+  
+        
+        this.controleur = controleur;
+        this.controleur.addObserver(this);
 
 
         Dimension boardSize = new Dimension(600, 600);
 
+        getContentPane().setPreferredSize(new Dimension(900, 600));
+        
+        
+        
         //  Use a Layered Pane for this this application
         layeredPane = new JLayeredPane();
         getContentPane().add(layeredPane);
+        
         layeredPane.setPreferredSize(boardSize);
         layeredPane.addMouseListener(this);
         layeredPane.addMouseMotionListener(this);
-
+        
         //Add a chess board to the Layered Pane 
 
         chessBoard = new JPanel();
@@ -64,12 +82,26 @@ public class ChessGameView extends JFrame implements MouseListener, MouseMotionL
         }
 
         //Add a few pieces to the board
-        this.controleur = controleur;
-        this.controleur.addObserver(this);
-        
         java.util.List<PieceIHM> listePieces = controleur.getListPiecesIHM();
         
         this.refreshView(listePieces);
+        
+        informations_panel = new JPanel();
+        informations_panel.setBorder(BorderFactory.createTitledBorder("Informations"));
+        informations_panel.setPreferredSize(new Dimension(300,600));
+        informations_textArea = new JTextArea("Bienvenue dans le jeu \nsuperMegaBienDeLaMortQuiTueTasVu\nSUPER CHESS !");
+        informations_textArea.setText(informations_textArea.getText()+"\n**********************\n\n");
+        informations_textArea.setEnabled(false);
+        informations_textArea.setLineWrap(true);
+        informations_panel.add(informations_textArea);
+        informations_panel.setLayout(new BorderLayout());
+        
+        JScrollBar scrollBar = new JScrollBar();
+        informations_textArea.add(scrollBar);
+        informations_panel.add(informations_textArea);
+        getContentPane().add(informations_panel);
+        
+        
     }
 
     public void mousePressed(MouseEvent e) {
@@ -126,7 +158,11 @@ public class ChessGameView extends JFrame implements MouseListener, MouseMotionL
 
 //        res_dest --;
         //System.out.println("Depose en case : " + x_dest + "*" + y_dest);
-        controleur.move(new Coord(x_init, y_init), new Coord(x_dest, y_dest));
+        
+       if ( !controleur.move(new Coord(x_init, y_init), new Coord(x_dest, y_dest)) ) {
+           refreshView(controleur.getListPiecesIHM());
+           informations_textArea.setText(informations_textArea.getText()+"\n"+"Ce n'est pas votre tour");
+       }
 
 //            if (c instanceof JLabel) {
 //                Container parent = c.getParent();
@@ -162,10 +198,9 @@ public class ChessGameView extends JFrame implements MouseListener, MouseMotionL
 //    }
     @Override
     public void update(Observable o, Object arg) {
-        ChessGame c = (ChessGame) o;
-        this.refreshView(c.getListPiecesIHM());
-        JOptionPane.showMessageDialog(chessBoard, c.getMessage());
-
+        this.refreshView(controleur.getListPiecesIHM());
+        //JOptionPane.showMessageDialog(chessBoard, controleur.getMessage());
+        informations_textArea.setText(informations_textArea.getText()+"\n"+controleur.getMessage());
     }
 
     //Supprime toutes les pieces du plateau, puis reaffiche avec la nouvelle position
