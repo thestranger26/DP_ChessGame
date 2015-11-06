@@ -17,6 +17,7 @@ import model.Couleur;
 import model.observable.ChessGame;
 import socket.AbstractSocket;
 import socket.SocketClient;
+import socket.SocketInformations;
 import socket.SocketServeur;
 
 /**
@@ -25,11 +26,14 @@ import socket.SocketServeur;
  */
 public class ChessGameAccueil extends javax.swing.JFrame {
 
+    SocketInformations socketInformations;
+
     /**
      * Creates new form ChessGameAccueil
      */
-    public ChessGameAccueil() {
+    public ChessGameAccueil(SocketInformations i) {
         initComponents();
+        socketInformations = i;
         jLabel_attenteClient.setVisible(false);
     }
 
@@ -223,83 +227,19 @@ public class ChessGameAccueil extends javax.swing.JFrame {
 
     private void jButton_jeuLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_jeuLocalActionPerformed
 
-        ChessGame chessGame;
-        I_ChessGameControlers chessGameControler;
+        socketInformations.isJeuReseau = false;
+        socketInformations.choixOk = true;
 
-        chessGame = new ChessGame();
-        chessGameControler = new ChessGameControler_local(chessGame);
-
-        JFrame frame = new ChessGameView(chessGameControler);
-        frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        frame.pack();
-        frame.setResizable(true);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jButton_jeuLocalActionPerformed
 
     private void jButton_connexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_connexionActionPerformed
-
-        ChessGame chessGame;
-        I_ChessGameControlers chessGameControler;
-
-        chessGame = new ChessGame();
-        chessGame.toString();
-
-
-        ////////////////////////////////////////////////
-        // Definition de la couleur et du type de socket
-        // en fonction du choix du joueur
-        Couleur couleur = null;
-        AbstractSocket socket = null;
-
-        boolean isServeur = JRadio_Serveur.isSelected();
-
-        if (isServeur) {
-            System.out.println("Démarrage du serveur");
-            try {
-                couleur = Couleur.BLANC;
-                jLabel_attenteClient.setVisible(true);
-                socket = new SocketServeur(Integer.parseInt(jTextField_port.getText()));
-                jLabel_attenteClient.setVisible(false);
-            } catch (Exception e) {
-                System.out.println(e.toString());
-            }
-        } else {
-            System.out.println("Démarrage du client");
-            try {
-                couleur = Couleur.NOIR;
-                this.setVisible(false);
-                socket = new SocketClient(jTextField_ip.getText(), Integer.parseInt(jTextField_port.getText()));
-            } catch (Exception e) {
-                System.out.println(e.toString());
-            }
-        }
-
-        //On ne crée le jeu que si la socket s'est connecté
-        if (socket != null) {
-            this.setVisible(false);
-            // chessGameControler = new ChessGameControler_local(chessGame);
-
-
-            chessGameControler = new ChessGameControler_sockets(chessGame, socket, couleur);
-
-            JFrame frame = new ChessGameView(chessGameControler);
-            frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-            frame.pack();
-            frame.setResizable(true);
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-
-        } else {
-            if (isServeur) {
-                JOptionPane.showMessageDialog(null, "Le port est déjà utilisé.");
-            } else {
-                JOptionPane.showMessageDialog(null, "Impossible de se connecter au serveur."
-                        + "\nVeuillez vérifier les paramètres de connexion");
-            }
-            this.setVisible(true);
-        }
+        socketInformations.ip = jTextField_ip.getText();
+        socketInformations.port = Integer.parseInt(jTextField_port.getText());
+        socketInformations.isJeuReseau = true;
+        socketInformations.isServeur = JRadio_Serveur.isSelected();
+        socketInformations.choixOk = true;
+        this.dispose();
     }//GEN-LAST:event_jButton_connexionActionPerformed
 
     private void JRadio_ServeurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRadio_ServeurActionPerformed
@@ -317,41 +257,6 @@ public class ChessGameAccueil extends javax.swing.JFrame {
         jTextField_ip.setEnabled(true);
         jLabel_ip.setEnabled(true);
     }//GEN-LAST:event_jRadio_clientActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ChessGameAccueil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ChessGameAccueil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ChessGameAccueil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ChessGameAccueil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ChessGameAccueil().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton JRadio_Serveur;
     private javax.swing.ButtonGroup buttonGroup1;
