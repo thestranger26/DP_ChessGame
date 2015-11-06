@@ -33,7 +33,7 @@ public class ChessGameView extends JFrame implements MouseListener, MouseMotionL
     
     JPanel informations_panel;
     JTextArea informations_textArea;
-    
+    JScrollPane informations_scrollPane;
 
     public ChessGameView(I_ChessGameControlers controleur) {
         
@@ -86,20 +86,22 @@ public class ChessGameView extends JFrame implements MouseListener, MouseMotionL
         
         this.refreshView(listePieces);
         
-        informations_panel = new JPanel();
-        informations_panel.setBorder(BorderFactory.createTitledBorder("Informations"));
-        informations_panel.setPreferredSize(new Dimension(300,600));
+//        informations_panel = new JPanel();
+//        informations_panel.setBorder(BorderFactory.createTitledBorder("Informations"));
+//        informations_panel.setPreferredSize(new Dimension(300,600));
+        
+        
+        
         informations_textArea = new JTextArea("Bienvenue dans le jeu \nsuperMegaBienDeLaMortQuiTueTasVu\nSUPER CHESS !");
-        informations_textArea.setText(informations_textArea.getText()+"\n**********************\n\n");
+        informations_textArea.setText(informations_textArea.getText()+"\n**********************");
+        informations_textArea.setText(informations_textArea.getText()+"\nLes blancs commençent !!\n\n");
         informations_textArea.setEnabled(false);
         informations_textArea.setLineWrap(true);
-        informations_panel.add(informations_textArea);
-        informations_panel.setLayout(new BorderLayout());
         
-        JScrollBar scrollBar = new JScrollBar();
-        informations_textArea.add(scrollBar);
-        informations_panel.add(informations_textArea);
-        getContentPane().add(informations_panel);
+        informations_scrollPane = new JScrollPane(informations_textArea);
+        informations_scrollPane.setPreferredSize(new Dimension(300,600));
+        
+        getContentPane().add(informations_scrollPane);
         
         
     }
@@ -159,11 +161,7 @@ public class ChessGameView extends JFrame implements MouseListener, MouseMotionL
 //        res_dest --;
         //System.out.println("Depose en case : " + x_dest + "*" + y_dest);
         
-       if ( !controleur.move(new Coord(x_init, y_init), new Coord(x_dest, y_dest)) ) {
-           refreshView(controleur.getListPiecesIHM());
-           informations_textArea.setText(informations_textArea.getText()+"\n"+"Ce n'est pas votre tour");
-       }
-
+       controleur.move(new Coord(x_init, y_init), new Coord(x_dest, y_dest)) ;
 //            if (c instanceof JLabel) {
 //                Container parent = c.getParent();
 //                parent.remove(0);
@@ -257,6 +255,8 @@ public class ChessGameView extends JFrame implements MouseListener, MouseMotionL
                 //Pour chaque pièce, on l'affiche en allant chercher l'image correspondante.
                 piece = new JLabel(new ImageIcon("images/" + p.getTypePiece() + p.getCouleur().toString() + "S.png"));
                 panel = (JPanel) chessBoard.getComponent(((7 - (c.y)) * 8 + (c.x)));
+                
+                
                 panel.add(piece);
             }
         }

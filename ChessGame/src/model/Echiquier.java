@@ -96,14 +96,14 @@ public class Echiquier {
 
 		this.isMoveOk = false;
 		
-		this.setMessage("KO : la position finale ne correspond pas à "
+		this.setMessage("Tour "+this.getColorCurrentPlayer().toString() +" => KO : la position finale ne correspond pas à "
 				+ "algo de déplacement légal de la piece ");
 
 		//	s'il n'existe pas de piece du jeu courant aux coordonnées initiales --> false
 		this.isPieceToMoveOk = jeuCourant.isPieceHere(xInit, yInit)	;
 		if (!this.isPieceToMoveOk) {
 			this.isMoveOk = false;
-			this.setMessage("KO : c'est au tour de l'autre joueur");
+			this.setMessage("Tour "+this.getColorCurrentPlayer().toString() +" => KO : cette pièce n'est pas de votre couleur");
 		}
 		else {
 			this.isMoveOk = isMoveLegal(xInit,  yInit,  xFinal,  yFinal);			
@@ -175,17 +175,17 @@ public class Echiquier {
 
 			// effectuer le déplacement
 			ret = this.jeuCourant.move(xInit, yInit, xFinal, yFinal);
-			this.setMessage("OK : déplacement sans capture "); // message sera annulé si capture
+			this.setMessage("Tour "+this.getColorCurrentPlayer().toString() +" => OK : déplacement du "+this.jeuCourant.getPieceType(xFinal, yFinal)+" en "+this.getLettrePosition(xFinal)+String.valueOf(8-yFinal)); // message sera annulé si capture
 
 			// effectuer l'éventuelle capture
 			if (ret && this.isCatchOk) {
 				this.jeuOppose.capture(xFinal, yFinal);
-				this.setMessage("OK : déplacement  + capture  ");			
+				this.setMessage("Tour "+this.getColorCurrentPlayer().toString()  +" => OK : déplacement du "+this.jeuCourant.getPieceType(xFinal, yFinal)+" en "+this.getLettrePosition(xFinal)+String.valueOf(8-yFinal)+" et capture  ");			
 			}
 		}
 		//	si déplacement illégal
 		else {
-			this.setMessage("KO : la position finale ne correspond pas à "
+			this.setMessage("KO : la position finale ne correspond pas à l'"
 					+ "algo de déplacement légal de la piece ");
 		}
 
@@ -372,6 +372,21 @@ public class Echiquier {
 		return false;
 	}
 
+        
+        public String getLettrePosition(int pos) {
+            String ret = "";
+            
+            if (pos == 0) ret = "A";
+            else if (pos == 1) ret = "B";
+            else if (pos == 2) ret = "C";
+            else if (pos == 3) ret = "D";
+            else if (pos == 4) ret = "E";
+            else if (pos == 5) ret = "F";
+            else if (pos == 6) ret = "G";
+            else if (pos == 7) ret = "H";
+            
+            return ret;
+        }
 
 	//	public static void main(String[] args) {
 	//		Echiquier e = new Echiquier();

@@ -43,8 +43,14 @@ public class ChessGameControler_sockets extends ChessGameAbstractControlers impl
 
         boolean ret = false;
         
-        if (chessGame.getColorCurrentPlayer().equals(couleur) 
-                && chessGame.move(initCoord.x, initCoord.y, finalCoord.x, finalCoord.y)) {
+        if (!chessGame.getColorCurrentPlayer().equals(couleur)) {
+            initCoord.x = -1;
+            initCoord.y = -1;
+            finalCoord.x = -1;
+            finalCoord.y = -1;
+        }
+          
+        if(chessGame.move(initCoord.x, initCoord.y, finalCoord.x, finalCoord.y)) {
             
             ArrayList<Coord> listCoordonees = new ArrayList<Coord>();
             listCoordonees.add(initCoord);
