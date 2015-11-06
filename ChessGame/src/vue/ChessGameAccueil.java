@@ -228,8 +228,7 @@ public class ChessGameAccueil extends javax.swing.JFrame {
     private void jButton_jeuLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_jeuLocalActionPerformed
 
         socketInformations.isJeuReseau = false;
-        socketInformations.choixOk = true;
-
+        
         this.dispose();
     }//GEN-LAST:event_jButton_jeuLocalActionPerformed
 
@@ -238,7 +237,6 @@ public class ChessGameAccueil extends javax.swing.JFrame {
         socketInformations.port = Integer.parseInt(jTextField_port.getText());
         socketInformations.isJeuReseau = true;
         socketInformations.isServeur = JRadio_Serveur.isSelected();
-        socketInformations.choixOk = true;
         this.dispose();
     }//GEN-LAST:event_jButton_connexionActionPerformed
 

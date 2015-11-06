@@ -9,7 +9,6 @@ package socket;
  * @author Tristan
  */
 public class SocketInformations {
-    public boolean choixOk = false;
     public int port;
     public String ip;
     public boolean isJeuReseau = false;
