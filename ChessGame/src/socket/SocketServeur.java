@@ -24,41 +24,38 @@ public class SocketServeur extends AbstractSocket {
 
     public static ServerSocket s_socket = null;
     public static Socket socket = null;
-    
-    public SocketServeur()  {
-        super();
-                 
-              try {
 
-               s_socket = new ServerSocket(2009);
+    public SocketServeur() {
+        super();
+
+        try {
+
+            s_socket = new ServerSocket(2009);
             System.out.println("Le serveur est à l'écoute du port " + s_socket.getLocalPort());
-            
+
             socket = s_socket.accept();
-            
-        out = new ObjectOutputStream(socket.getOutputStream());
-            in =  new ObjectInputStream(socket.getInputStream());
-            
-            
+
+            out = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
+
+
             reception = new Reception(in);
             emission = new Emission(out);
-   
-     
-            
+
+
+
         } catch (Exception e) {
             System.err.println("Le port " + socket.getLocalPort() + " est déjà utilisé !");
         }
     }
-    
+
     public static void main(String[] args) {
-
-
     }
 
     @Override
     public void run() {
-      while (true) {
-          
-      }
+        while (true) {
+        }
     }
 
     @Override
