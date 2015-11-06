@@ -6,6 +6,7 @@ package model.observable;
 
 import java.util.List;
 import java.util.Observable;
+import model.Coord;
 import model.Couleur;
 import model.Echiquier;
 import model.PieceIHM;
@@ -70,5 +71,9 @@ public class ChessGame extends Observable {
     public List<PieceIHM> getListPiecesIHM() {
         return echiquier.getPiecesIHM();
 
+    }
+
+    public List<Coord> getCoordonneesPossibles(Coord coordInit) {
+        return echiquier.getCoordonneesPossibles(coordInit);
     }
 }

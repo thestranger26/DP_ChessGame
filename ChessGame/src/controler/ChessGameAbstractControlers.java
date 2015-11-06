@@ -54,4 +54,6 @@ public abstract class ChessGameAbstractControlers implements I_ChessGameControle
     public List<PieceIHM> getListPiecesIHM() {
         return chessGame.getListPiecesIHM();
     }
+    
+    public abstract List<Coord> getCoordonneesPossibles(Coord coordInit);
 }

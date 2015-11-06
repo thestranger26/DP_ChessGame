@@ -26,5 +26,7 @@ public interface I_ChessGameControlers {
     public List<PieceIHM> getListPiecesIHM();
 
     public String getType();
+
+    public List<Coord> getCoordonneesPossibles(Coord coordInit);
    
 }

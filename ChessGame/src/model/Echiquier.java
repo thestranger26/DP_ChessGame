@@ -393,4 +393,18 @@ public class Echiquier {
 	//			System.out.println(e.getPiecesIHM());
 	//		}
 
+    public List<Coord> getCoordonneesPossibles(Coord coordInit) {
+        List<Coord> ret = new LinkedList<Coord>();
+        
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (this.isMoveLegal(coordInit.x,coordInit.y,i, j)) {
+                    ret.add(new Coord(i, j));
+                }
+             }
+        }
+        
+        return ret;
+    }
+
 }

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.time.Clock;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -86,6 +87,15 @@ public class ChessGameControler_sockets extends ChessGameAbstractControlers impl
     @Override
     public String getType() {
         return socket.getType() + " " + couleur.toString();
+    }
+
+    @Override
+    public List<Coord> getCoordonneesPossibles(Coord coordInit) {
+        List<Coord> ret = new LinkedList<>();
+        if (chessGame.getColorCurrentPlayer().equals(couleur)) {
+            ret = chessGame.getCoordonneesPossibles(coordInit);
+        }
+        return ret;
     }
 
 }

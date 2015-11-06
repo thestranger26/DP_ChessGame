@@ -34,4 +34,9 @@ public class ChessGameControler_local extends ChessGameAbstractControlers {
         return "Jeu Local";
     }
 
+    @Override
+    public List<Coord> getCoordonneesPossibles(Coord coordInit) {
+        return chessGame.getCoordonneesPossibles(coordInit);
+    }
+
 }
