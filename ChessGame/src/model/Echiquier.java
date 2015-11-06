@@ -398,7 +398,7 @@ public class Echiquier {
         
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (this.isMoveLegal(coordInit.x,coordInit.y,i, j)) {
+                if (this.isMoveOk(coordInit.x,coordInit.y,i, j)) {
                     ret.add(new Coord(i, j));
                 }
              }
