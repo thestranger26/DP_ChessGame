@@ -25,12 +25,12 @@ public class SocketServeur extends AbstractSocket {
     public static ServerSocket s_socket = null;
     public static Socket socket = null;
 
-    public SocketServeur() {
+    public SocketServeur(int port) {
         super();
 
         try {
 
-            s_socket = new ServerSocket(2009);
+            s_socket = new ServerSocket(port);
             System.out.println("Le serveur est à l'écoute du port " + s_socket.getLocalPort());
 
             socket = s_socket.accept();
@@ -61,5 +61,9 @@ public class SocketServeur extends AbstractSocket {
     @Override
     public String getType() {
         return "Serveur";
+    }
+    
+    public String getIp() {
+        return socket.getInetAddress().getHostAddress();
     }
 }

@@ -23,12 +23,12 @@ public class SocketClient extends AbstractSocket {
 
     public static Socket socket = null;
 
-   public SocketClient() {
+   public SocketClient(String ip, int port) {
 
         try {
 
             System.out.println("Demande de connexion");
-            socket = new Socket("127.0.0.1", 2009);
+            socket = new Socket(ip, port);
             System.out.println("Connexion établie avec le serveur, authentification :"); // Si le message s'affiche c'est que je suis connecté
 
             
