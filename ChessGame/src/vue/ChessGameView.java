@@ -86,10 +86,6 @@ public class ChessGameView extends JFrame implements MouseListener, MouseMotionL
         
         this.refreshView(listePieces);
         
-//        informations_panel = new JPanel();
-//        informations_panel.setBorder(BorderFactory.createTitledBorder("Informations"));
-//        informations_panel.setPreferredSize(new Dimension(300,600));
-        
         
         
         informations_textArea = new JTextArea("Bienvenue dans le jeu \nsuperMegaBienDeLaMortQuiTueTasVu\nSUPER CHESS !");
@@ -141,7 +137,6 @@ public class ChessGameView extends JFrame implements MouseListener, MouseMotionL
         }
         ////////////////////
         // RECUPERATION DE L'ORIGINE
-        //    chessPiece.setVisible(false);
 
 
         int x_init = x_origin / 75;
@@ -150,28 +145,15 @@ public class ChessGameView extends JFrame implements MouseListener, MouseMotionL
         x_origin = 0;
         y_origin = 0;
 
-        //System.out.println("Piece recup : " + x_init + "*" + y_init);
         ////////////////////
         // RECUPERATION DE LA DESTINATION
         chessPiece.setVisible(false);
 
         int x_dest = e.getX() / 75;
         int y_dest = 7 - (e.getY() / 75);
-
-//        res_dest --;
-        //System.out.println("Depose en case : " + x_dest + "*" + y_dest);
         
        controleur.move(new Coord(x_init, y_init), new Coord(x_dest, y_dest)) ;
-//            if (c instanceof JLabel) {
-//                Container parent = c.getParent();
-//                parent.remove(0);
-//                parent.add(chessPiece);
-//            } else {
-//                Container parent = (Container) c;
-//                parent.add(chessPiece);
-//            }
-//
-//            chessPiece.setVisible(true);
+
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -186,18 +168,9 @@ public class ChessGameView extends JFrame implements MouseListener, MouseMotionL
     public void mouseExited(MouseEvent e) {
     }
 
-//    public static void main(String[] args) {
-//        JFrame frame = new ChessGameView();
-//        frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-//        frame.pack();
-//        frame.setResizable(true);
-//        frame.setLocationRelativeTo(null);
-//        frame.setVisible(true);
-//    }
     @Override
     public void update(Observable o, Object arg) {
         this.refreshView(controleur.getListPiecesIHM());
-        //JOptionPane.showMessageDialog(chessBoard, controleur.getMessage());
         informations_textArea.setText(informations_textArea.getText()+"\n"+controleur.getMessage());
     }
 
@@ -206,18 +179,10 @@ public class ChessGameView extends JFrame implements MouseListener, MouseMotionL
         
         /////////////////////////////////////
         // On commence par tout supprimer
-//        Component component;
-//        for (int x = 0; x < 8; x++) {
-//            for (int y = 0; y < 8; y++) {
-//                component = chessBoard.findComponentAt(x, y);
-//                if (component instanceof JLabel) {
-//                    Container parent = component.getParent();
-//                    parent.remove(0);
-//                }
-//            }
-//        }
-        Dimension boardSize = new Dimension(600, 600);
         chessBoard.removeAll();
+        
+        // Puis on reconstruit tout
+        Dimension boardSize = new Dimension(600, 600);
         chessBoard.setLayout(new GridLayout(8, 8));
         chessBoard.setPreferredSize(boardSize);
         chessBoard.setBounds(0, 0, boardSize.width, boardSize.height);
